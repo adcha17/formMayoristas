@@ -3,8 +3,8 @@
     <div class="logo-container">
       <img class="logo" src="../assets/img/logo.png" alt="Mayorizta">
     </div>
-    <div class="mat-title text-color-mayorizta bold">¿Necesitas abastecer tu negocio?</div>
-    <div class="mat-title text-color-mayorizta bold">¡Encuentra lo que necesitas con un solo proveedor en una misma misma entrega!</div>
+    <div class="container mat-display-1 text-color-white bold">¿Necesitas abastecer tu negocio?</div>
+    <div class="container mat-display-1 text-color-white bold">¡Encuentra lo que necesitas con un solo proveedor en una misma misma entrega!</div>
   </div>
   <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center start" class="container">
     <br>
@@ -13,8 +13,7 @@
       <div class="mat-headline title text-title text-color-mayorizta">Por favor, déjanos tus datos para ponernos en contacto contigo:</div>
     </div>
     <mat-divider></mat-divider>
-    <br>
-    <form (ngSubmit)="_postContact()" #contactForm="ngForm" fxLayout="column" fxLayout.xs="column"
+    <form (ngSubmit)="validateCheckboxs()" #contactForm="ngForm" fxLayout="column" fxLayout.xs="column"
       fxLayoutGap="10px">
       <div fxLayout="column" fxLayout.xs="column" fxLayoutGap="10px">
         <div>
@@ -37,8 +36,9 @@
         </div>
         <div>
           <mat-form-field>
-            <input matInput placeholder="Teléfono" [formControl]="phone" [(ngModel)]="contact.phone" name="phone">
+            <input matInput type="number" placeholder="Teléfono" [formControl]="phone" [(ngModel)]="contact.phone" name="phone">
           </mat-form-field>
+          <mat-error *ngIf="phone.invalid">{{getErrorMessage('phone')}}</mat-error>
         </div>
         <div>
           <mat-form-field>
@@ -47,30 +47,62 @@
         </div>
         <div>
           <mat-form-field>
-            <input matInput placeholder="RUC" [formControl]="RUC" [(ngModel)]="contact.RUC" name="RUC">
+            <input matInput type="number" placeholder="RUC" [formControl]="RUC" [(ngModel)]="contact.RUC" name="RUC">
           </mat-form-field>
         </div>
         <div fxLayout="column">
           <div class="mat-subheading-2 text-color-mayorizta">Categoría de tu negocio *</div>
-          <mat-checkbox *ngFor="let option of optionCategories" [value]="option.value" (change)="_postCategory($event, option.value)">
-            <span class="text-color-input">{{option.name}}</span>
+          <mat-checkbox [(ngModel)]="contact.hotel" [formControl]="hotel" name="hotel">
+            <span class="text-color-input">Hotel</span>
           </mat-checkbox>
+          <mat-checkbox [(ngModel)]="contact.restaurante" [formControl]="restaurante" name="restaurante">
+            <span class="text-color-input">Restaurante</span>
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="contact.catering" [formControl]="catering" name="catering">
+            <span class="text-color-input">Catering</span>
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="contact.otro" [formControl]="otro" name="otro">
+            <span class="text-color-input">Otro</span>
+          </mat-checkbox>
+          <mat-form-field *ngIf="otro.value">
+            <input matInput [(ngModel)]="inputOtro" name="otro">
+          </mat-form-field>
+          <mat-error *ngIf="emptyCategories">Alguna categoría es requerida.</mat-error>
         </div>
         <div fxLayout="column">
           <div class="mat-subheading-2 text-color-mayorizta">Selecciona los productos de tu interés *</div>
-          <mat-checkbox *ngFor="let option of optionProducts" [value]="option.value" (click)="_postProduct($event, option.value)">
-            <span class="text-color-input">{{option.name}}</span>
+          <mat-checkbox [(ngModel)]="contact.frutas" [formControl]="frutas" name="frutas">
+            <span class="text-color-input">Frutas</span>
           </mat-checkbox>
+          <mat-checkbox [(ngModel)]="contact.verduras" [formControl]="verduras" name="verduras">
+            <span class="text-color-input">Verduras</span>
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="contact.abarrotes" [formControl]="abarrotes" name="abarrotes">
+            <span class="text-color-input">Abarrotes</span>
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="contact.bebidas" [formControl]="bebidas" name="bebidas">
+            <span class="text-color-input">Bebidas</span>
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="contact.all" [formControl]="all" name="all">
+            <span class="text-color-input">Todos los anteriores</span>
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="contact.otros" [formControl]="otros" name="otros">
+            <span class="text-color-input">Otros</span>
+          </mat-checkbox>
+          <mat-form-field *ngIf="otros.value">
+            <input matInput [(ngModel)]="inputOtros" name="otros">
+          </mat-form-field>
+          <mat-error *ngIf="emptyProducts">Algún producto es requerido.</mat-error>
         </div>
         <div>
           <mat-form-field>
-            <textarea matInput placeholder="Comentarios" name="comment" rows="2"></textarea>
+            <textarea matInput [formControl]="comment" [(ngModel)]="contact.comment" placeholder="Comentarios" name="comment" rows="2"></textarea>
           </mat-form-field>
         </div>
       </div>
 
       <button mat-raised-button color="primary">
-        <span class="text-color-btn bold">Enviar</span>
+        <span class="text-color-white bold">Enviar</span>
       </button>
       <br>
     </form>

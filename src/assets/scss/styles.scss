@@ -27,11 +27,16 @@ body {
 .text-color-mayorizta {
     color: #f1a21e;
 }
-.text-color-btn {
+.text-color-white {
     color: #fff;
 }
 .bold {
     font-weight: bold;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /*---Font---*/
