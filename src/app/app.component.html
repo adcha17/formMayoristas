@@ -1,0 +1,78 @@
+<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="100px" class="mat-typography container">
+  <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center center">
+    <div class="logo-container">
+      <img class="logo" src="../assets/img/logo.png" alt="Mayorizta">
+    </div>
+    <div class="mat-title text-color-mayorizta bold">¿Necesitas abastecer tu negocio?</div>
+    <div class="mat-title text-color-mayorizta bold">¡Encuentra lo que necesitas con un solo proveedor en una misma misma entrega!</div>
+  </div>
+  <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center start" class="container">
+    <br>
+    <br>
+    <div>
+      <div class="mat-headline title text-title text-color-mayorizta">Por favor, déjanos tus datos para ponernos en contacto contigo:</div>
+    </div>
+    <mat-divider></mat-divider>
+    <br>
+    <form (ngSubmit)="_postContact()" #contactForm="ngForm" fxLayout="column" fxLayout.xs="column"
+      fxLayoutGap="10px">
+      <div fxLayout="column" fxLayout.xs="column" fxLayoutGap="10px">
+        <div>
+          <mat-form-field>
+            <input matInput placeholder="Nombres" required [formControl]="name" [(ngModel)]="contact.name" name="name">
+            <mat-error *ngIf="name.invalid">{{getErrorMessage('name')}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <input matInput placeholder="Apellidos" required [formControl]="lastname" [(ngModel)]="contact.lastname" name="lastname">
+            <mat-error *ngIf="lastname.invalid">{{getErrorMessage('lastname')}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <input matInput placeholder="Correo" required [formControl]="email" [(ngModel)]="contact.email" name="email">
+            <mat-error *ngIf="email.invalid">{{getErrorMessage('email')}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <input matInput placeholder="Teléfono" [formControl]="phone" [(ngModel)]="contact.phone" name="phone">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <input matInput placeholder="Razón Social" [formControl]="businessName" [(ngModel)]="contact.businessName" name="businessName">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <input matInput placeholder="RUC" [formControl]="RUC" [(ngModel)]="contact.RUC" name="RUC">
+          </mat-form-field>
+        </div>
+        <div fxLayout="column">
+          <div class="mat-subheading-2 text-color-mayorizta">Categoría de tu negocio *</div>
+          <mat-checkbox *ngFor="let option of optionCategories" [value]="option.value" (change)="_postCategory($event, option.value)">
+            <span class="text-color-input">{{option.name}}</span>
+          </mat-checkbox>
+        </div>
+        <div fxLayout="column">
+          <div class="mat-subheading-2 text-color-mayorizta">Selecciona los productos de tu interés *</div>
+          <mat-checkbox *ngFor="let option of optionProducts" [value]="option.value" (click)="_postProduct($event, option.value)">
+            <span class="text-color-input">{{option.name}}</span>
+          </mat-checkbox>
+        </div>
+        <div>
+          <mat-form-field>
+            <textarea matInput placeholder="Comentarios" name="comment" rows="2"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <button mat-raised-button color="primary">
+        <span class="text-color-btn bold">Enviar</span>
+      </button>
+      <br>
+    </form>
+  </div>
+</div>

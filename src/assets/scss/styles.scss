@@ -1,5 +1,39 @@
 /*---Global Styles---*/
 
+body {
+    background: url(../img/fondo.png) no-repeat center center fixed;
+    background-size: cover;
+    padding: 0;
+    margin: 0;
+    min-width: 320px;
+}
+/*-- Container --*/
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.logo-container {
+    overflow: hidden;
+}
+.logo {
+    width: 100%;
+    height: auto;
+}
+.text-color-input, input, textarea {
+    color: #b5c2c2!important;
+}
+.text-color-mayorizta {
+    color: #f1a21e;
+}
+.text-color-btn {
+    color: #fff;
+}
+.bold {
+    font-weight: bold;
+}
+
 /*---Font---*/
 @import url(https://fonts.googleapis.com/icon?family=Roboto);
 

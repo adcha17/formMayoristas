@@ -1,14 +1,23 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+/*---Import Angular Flex Layout---*/
 import {FlexLayoutModule} from '@angular/flex-layout';
+/*---Imports Angular Material---*/
 import {
-  MatToolbarModule,
-  MatTabsModule,
+  MatGridListModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSelectModule,
   MatButtonModule,
-  MatIconModule,
+  MatListModule,
+  MatRadioModule,
+  MatCheckboxModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
   MatCardModule,
-  MatCheckboxModule
+  MatIconModule
 } from '@angular/material';
 
 
@@ -21,14 +30,22 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    MatToolbarModule,
-    MatTabsModule,
+    MatGridListModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
     MatButtonModule,
-    MatIconModule,
+    MatListModule,
+    MatRadioModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatCardModule,
-    MatCheckboxModule
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
