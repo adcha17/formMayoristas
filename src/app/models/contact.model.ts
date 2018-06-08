@@ -5,6 +5,7 @@ export class ContactModel {
         public email: string,
         public phone: string,
         public businessName: string,
+        public RUC: string,
         public hotel: boolean,
         public restaurante: boolean,
         public catering: boolean,
@@ -15,7 +16,6 @@ export class ContactModel {
         public bebidas: boolean,
         public all: boolean,
         public otros: boolean,
-        public R: boolean,
         public comment: string,
     ) { }
 }
