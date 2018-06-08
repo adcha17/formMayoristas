@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ContactModel } from './models/contact.model';
+import {MatDialog, MatDialogRef} from '@angular/material';
+import { environment } from '../environments/environment';
+
 
 /* Service */
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
@@ -14,7 +17,7 @@ import { Observable } from 'rxjs/Observable';
 export class AppComponent implements OnInit {
   title = 'Contacto Mayorizta';
 
-  contact = new ContactModel(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+  contact = new ContactModel(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
   categories: string;
   products: string;
   emptyCategories: boolean = false;
@@ -32,6 +35,7 @@ export class AppComponent implements OnInit {
   hotel = new FormControl('');
   restaurante = new FormControl('');
   catering = new FormControl('');
+  limpieza = new FormControl('');
   otro = new FormControl('');
   frutas = new FormControl('');
   verduras = new FormControl('');
@@ -42,13 +46,14 @@ export class AppComponent implements OnInit {
   comment = new FormControl('');
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
   }
 
-  private getErrorMessage(input) {
+  getErrorMessage(input) {
     if (input === 'name') {
       return this.name.hasError('required') ? 'Nombre es requerido.' : '';
     }
@@ -60,16 +65,16 @@ export class AppComponent implements OnInit {
         '';
     }
   }
-  private validateCheckboxs(): void {
+  validateCheckboxs(): void {
     //validate input empty Categories
-    if (this.hotel.value || this.restaurante.value || this.catering.value || this.otro.value) {
+    if (this.hotel.value || this.restaurante.value || this.catering.value || this.limpieza.value || (this.otro.value && this.inputOtro)) {
       this.emptyCategories = false;
-      this.generateCategories(this.hotel.value, this.restaurante.value, this.catering.value, this.otro.value);
+      this.generateCategories(this.hotel.value, this.restaurante.value, this.catering.value, this.limpieza.value, this.otro.value);
     } else {
       this.emptyCategories = true;
     }
     //validate input empty Products
-    if (this.frutas.value || this.verduras.value || this.abarrotes.value || this.bebidas.value || this.all.value || this.otros.value) {
+    if (this.frutas.value || this.verduras.value || this.abarrotes.value || this.bebidas.value || this.all.value || (this.otros.value && this.inputOtros)) {
       this.emptyProducts = false;
       this.generateProducts(this.frutas.value, this.verduras.value, this.abarrotes.value, this.bebidas.value, this.all.value, this.otros.value);
     } else {
@@ -80,7 +85,7 @@ export class AppComponent implements OnInit {
       this.sendEmail(this.name.value, this.lastname.value, this.email.value, this.phone.value, this.businessName.value, this.RUC.value, this.categories, this.products, this.comment.value);
     }
   }
-  private sendEmail(name, lastname, email, phone, businessName, RUC, categories, products, comment) {
+  sendEmail(name, lastname, email, phone, businessName, RUC, categories, products, comment) {
     let body = {
       name: name,
       lastname: lastname,
@@ -92,13 +97,15 @@ export class AppComponent implements OnInit {
       product: products,
       comment: comment,
     }
-    this.http.post('http://127.0.0.1:7777/api/contacts', body).subscribe(res => {},
+    this.http.post(environment.api, body).subscribe(res => {
+      this.thanksModal();
+    },
       err => {
         console.error(err);
       }
     );
   }
-  private generateCategories(hotel, restaurante, catering, otro) {
+  generateCategories(hotel, restaurante, catering, limpieza, otro) {
     let arrayCategories = [];
     if (hotel) {
       arrayCategories.push('hotel');
@@ -109,12 +116,15 @@ export class AppComponent implements OnInit {
     if (catering) {
       arrayCategories.push('catering');
     }
+    if (limpieza) {
+      arrayCategories.push('limpieza');
+    }
     if (otro && this.inputOtro) {
       arrayCategories.push(this.inputOtro);
     }
     this.categories = arrayCategories.join(', ');
   }
-  private generateProducts(frutas, verduras, abarrotes, bebidas, all, otros) {
+  generateProducts(frutas, verduras, abarrotes, bebidas, all, otros) {
     let arrayProducts = [];
     if (frutas) {
       arrayProducts.push('frutas');
@@ -137,4 +147,25 @@ export class AppComponent implements OnInit {
     }
     this.products = arrayProducts.join(', ');
   }
+  thanksModal(): void {
+    this.dialog.open(ModalComponent, {
+      width: '300px'
+    });
+  }
+}
+
+@Component({
+  selector: 'modalComponent',
+  templateUrl: 'modal.component.html',
+})
+export class ModalComponent {
+
+  constructor(
+    public dialogRef: MatDialogRef<ModalComponent>
+  ) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }

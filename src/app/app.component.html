@@ -3,8 +3,8 @@
     <div class="logo-container">
       <img class="logo" src="../assets/img/logo.png" alt="Mayorizta">
     </div>
-    <div class="container mat-display-2 text-color-white bold">¿Necesitas abastecer tu negocio?</div>
-    <div class="container mat-display-2 text-color-white bold">¡Encuentra lo que necesitas con un solo proveedor en una misma entrega!</div>
+    <div class="container mat-display-2 text-color-white bold text-center">¿Necesitas abastecer tu negocio?</div>
+    <div class="container mat-display-2 text-color-white bold text-center">¡Encuentra lo que necesitas con un solo proveedor en una misma entrega!</div>
   </div>
   <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center start" class="container">
     <br>
@@ -52,14 +52,17 @@
         </div>
         <div fxLayout="column">
           <div class="mat-subheading-2 text-color-mayorizta">Categoría de tu negocio *</div>
+          <mat-checkbox [(ngModel)]="contact.catering" [formControl]="catering" name="catering">
+            <span class="text-color-input">Catering</span>
+          </mat-checkbox>
           <mat-checkbox [(ngModel)]="contact.hotel" [formControl]="hotel" name="hotel">
             <span class="text-color-input">Hotel</span>
           </mat-checkbox>
+          <mat-checkbox [(ngModel)]="contact.limpieza" [formControl]="limpieza" name="limpieza">
+            <span class="text-color-input">Limpieza</span>
+          </mat-checkbox>
           <mat-checkbox [(ngModel)]="contact.restaurante" [formControl]="restaurante" name="restaurante">
             <span class="text-color-input">Restaurante</span>
-          </mat-checkbox>
-          <mat-checkbox [(ngModel)]="contact.catering" [formControl]="catering" name="catering">
-            <span class="text-color-input">Catering</span>
           </mat-checkbox>
           <mat-checkbox [(ngModel)]="contact.otro" [formControl]="otro" name="otro">
             <span class="text-color-input">Otro</span>
@@ -71,17 +74,17 @@
         </div>
         <div fxLayout="column">
           <div class="mat-subheading-2 text-color-mayorizta">Selecciona los productos de tu interés *</div>
-          <mat-checkbox [(ngModel)]="contact.frutas" [formControl]="frutas" name="frutas">
-            <span class="text-color-input">Frutas</span>
-          </mat-checkbox>
-          <mat-checkbox [(ngModel)]="contact.verduras" [formControl]="verduras" name="verduras">
-            <span class="text-color-input">Verduras</span>
-          </mat-checkbox>
           <mat-checkbox [(ngModel)]="contact.abarrotes" [formControl]="abarrotes" name="abarrotes">
             <span class="text-color-input">Abarrotes</span>
           </mat-checkbox>
           <mat-checkbox [(ngModel)]="contact.bebidas" [formControl]="bebidas" name="bebidas">
             <span class="text-color-input">Bebidas</span>
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="contact.frutas" [formControl]="frutas" name="frutas">
+            <span class="text-color-input">Frutas</span>
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="contact.verduras" [formControl]="verduras" name="verduras">
+            <span class="text-color-input">Verduras</span>
           </mat-checkbox>
           <mat-checkbox [(ngModel)]="contact.all" [formControl]="all" name="all">
             <span class="text-color-input">Todos los anteriores</span>
@@ -102,7 +105,7 @@
       </div>
 
       <button mat-raised-button color="primary">
-        <span class="text-color-white bold">Enviar</span>
+        <span class="text-color-white bold text-center">Enviar</span>
       </button>
       <br>
     </form>

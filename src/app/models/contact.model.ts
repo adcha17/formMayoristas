@@ -9,6 +9,7 @@ export class ContactModel {
         public hotel: boolean,
         public restaurante: boolean,
         public catering: boolean,
+        public limpieza: string,
         public otro: boolean,
         public frutas: boolean,
         public verduras: boolean,
