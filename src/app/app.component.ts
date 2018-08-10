@@ -29,9 +29,9 @@ export class AppComponent implements OnInit {
   name = new FormControl('', [Validators.required]);
   lastname = new FormControl('', [Validators.required]);
   email = new FormControl('', [Validators.required, Validators.email]);
-  phone = new FormControl('');
-  businessName = new FormControl('');
-  RUC = new FormControl('');
+  phone = new FormControl('', [Validators.required]);
+  businessName = new FormControl('', [Validators.required]);
+  RUC = new FormControl('', [Validators.required]);
   hotel = new FormControl('');
   restaurante = new FormControl('');
   catering = new FormControl('');
@@ -64,6 +64,15 @@ export class AppComponent implements OnInit {
       return this.email.hasError('required') ? 'Email es requerido.' : this.email.hasError('email') ? 'Email no válido.' :
         '';
     }
+    if (input === 'phone') {
+      return this.phone.hasError('required') ? 'Teléfono es requerido.' : '';
+    }
+    if (input === 'businessName') {
+      return this.businessName.hasError('required') ? 'Razón Social es requerido.' : '';
+    }
+    if (input === 'RUC') {
+      return this.RUC.hasError('required') ? 'RUC es requerido.' : '';
+    }
   }
   validateCheckboxs(): void {
     //validate input empty Categories
@@ -81,7 +90,7 @@ export class AppComponent implements OnInit {
       this.emptyProducts = true;
     }
     // validate data for send mail
-    if (this.name.value && this.lastname.value && this.email.value && !this.emptyCategories && !this.emptyProducts) {
+    if (this.name.value && this.lastname.value && this.email.value && this.phone.value && this.businessName.value && this.RUC.value && !this.emptyCategories && !this.emptyProducts) {
       this.sendEmail(this.name.value, this.lastname.value, this.email.value, this.phone.value, this.businessName.value, this.RUC.value, this.categories, this.products, this.comment.value);
     }
   }

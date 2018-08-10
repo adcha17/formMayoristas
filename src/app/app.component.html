@@ -5,6 +5,7 @@
     </div>
     <div class="container mat-display-2 text-color-white bold text-center">¿Necesitas abastecer tu negocio?</div>
     <div class="container mat-display-2 text-color-white bold text-center">¡Encuentra lo que necesitas con un solo proveedor en una misma entrega!</div>
+    <div class="container mat-display-2 text-color-white bold text-center" style="display: none;">Mejor que ir a Makro, Mayorista.pe tu mejor opción.</div>
   </div>
   <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center start" class="container">
     <br>
@@ -36,18 +37,20 @@
         </div>
         <div>
           <mat-form-field>
-            <input matInput type="number" placeholder="Teléfono" [formControl]="phone" [(ngModel)]="contact.phone" name="phone">
-          </mat-form-field>
-          <mat-error *ngIf="phone.invalid">{{getErrorMessage('phone')}}</mat-error>
-        </div>
-        <div>
-          <mat-form-field>
-            <input matInput placeholder="Razón Social" [formControl]="businessName" [(ngModel)]="contact.businessName" name="businessName">
+            <input matInput type="number" placeholder="Teléfono" required [formControl]="phone" [(ngModel)]="contact.phone" name="phone">
+            <mat-error *ngIf="phone.invalid">{{getErrorMessage('phone')}}</mat-error>
           </mat-form-field>
         </div>
         <div>
           <mat-form-field>
-            <input matInput type="number" placeholder="RUC" [formControl]="RUC" [(ngModel)]="contact.RUC" name="RUC">
+            <input matInput placeholder="Razón Social" required [formControl]="businessName" [(ngModel)]="contact.businessName" name="businessName">
+            <mat-error *ngIf="businessName.invalid">{{getErrorMessage('businessName')}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <input matInput type="number" placeholder="RUC" required [formControl]="RUC" [(ngModel)]="contact.RUC" name="RUC">
+            <mat-error *ngIf="RUC.invalid">{{getErrorMessage('RUC')}}</mat-error>
           </mat-form-field>
         </div>
         <div fxLayout="column">
